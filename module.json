@@ -1,0 +1,27 @@
+{
+  "id": "pf2e-encounter-table-builder",
+  "title": "PF2e Encounter Table Builder",
+  "description": "A Foundry VTT module for building PF2e rollable encounter tables from actor drag-and-drop rows. Including encounter difficulty calculation based on party size and level.",
+  "version": "1.0",
+  "authors": [
+    {
+      "name": "Nimbus"
+    }
+  ],
+  "languages": ["en"],
+  "compatibility": {
+    "minimum": "13.351",
+    "verified": "14"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/builder.css"
+  ],
+  "socket": false,
+  "manifest": "https://raw.githubusercontent.com/bbarrington0099/pf2e-encounter-table-builder/main/module.json",
+  "url": "https://github.com/bbarrington0099/pf2e-encounter-table-builder",
+  "license": "https://github.com/bbarrington0099/pf2e-encounter-table-builder?tab=MIT-1-ov-file",
+  "readme": "https://github.com/bbarrington0099/pf2e-encounter-table-builder?tab=readme-ov-file"
+}

@@ -1,0 +1,255 @@
+<form class="builder">
+  <section class="panel">
+    <div class="rows-header">
+      <strong>Party Settings</strong>
+    </div>
+
+    <div class="settings-grid">
+      <label class="field">
+        <span>Party Count</span>
+        <input
+          name="partyCount"
+          type="number"
+          min="1"
+          step="1"
+          value="{{partyCount}}"
+        >
+      </label>
+
+      <label class="field">
+        <span>Party Level</span>
+        <input
+          name="partyLevel"
+          type="number"
+          min="1"
+          max="20"
+          step="1"
+          value="{{partyLevel}}"
+        >
+      </label>
+
+      <label class="field">
+        <span>Table Name</span>
+        <input
+          name="tableName"
+          type="text"
+          value="{{tableName}}"
+        >
+      </label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="rows-header">
+      <strong>Encounter Budgets</strong>
+      <span>
+        <strong>Per Party Member:</strong>
+        T - 10 | L - 15 | M - 20 | S - 30 | E - 40
+      </span>
+    </div>
+
+    <div class="budget-grid">
+      {{#each budgets as |budget|}}
+        <div class="budget-card budget-card-{{budget.cssLabel}}">
+          <div class="label">{{budget.label}}</div>
+          <div class="value">{{budget.xp}} XP</div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="legend">
+      <strong>Creature XP by Relative Level:</strong>
+      -4 = 10 | -3 = 15 | -2 = 20 | -1 = 30 |
+      0 = 40 | +1 = 60 | +2 = 80 | +3 = 120 |
+      +4 = 160
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="rows-header">
+      <strong>Encounter Rows</strong>
+    </div>
+
+    {{#if hasRows}}
+      <div class="encounter-list">
+        {{#each rows as |row|}}
+          <article class="encounter-row encounter-row-{{row.difficultyClass}} {{#if row.expanded}}expanded{{/if}}" data-row-id="{{row.id}}">
+            <div class="row-summary">
+              <div class="row-main">
+                <strong class="row-title">
+                  Encounter {{row.index}}
+                </strong>
+
+                <span class="summary">
+                  {{#if row.hasMembers}}
+                    {{row.summaryText}}
+                    —
+                    <span class="difficulty-badge diff-{{row.difficultyClass}}">
+                      {{row.difficultyLabel}}
+                    </span>
+                    {{row.totalXp}} XP
+                  {{else}}
+                    Empty Encounter — 0 XP
+                  {{/if}}
+                </span>
+              </div>
+
+              <div class="row-meta">
+                <label class="field weight-field">
+                  <span>Weight</span>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    value="{{row.weight}}"
+                    data-action="row-weight"
+                    data-row-id="{{row.id}}"
+                  >
+                </label>
+
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  data-action="toggle-row"
+                  data-row-id="{{row.id}}"
+                >
+                  {{#if row.expanded}}Close{{else}}Edit{{/if}}
+                </button>
+
+                <button
+                  type="button"
+                  class="btn-danger"
+                  data-action="remove-row"
+                  data-row-id="{{row.id}}"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            <div class="row-editor">
+              <div
+                class="dropzone encounter-dropzone"
+                data-row-id="{{row.id}}"
+              >
+                Drag & Drop Enemy Actors Here
+              </div>
+
+              <div class="row-footer">
+                <span>
+                  <strong>Total:</strong>
+                  {{row.totalXp}} XP
+                </span>
+
+                <span>•</span>
+
+                <span>
+                  <strong>Difficulty:</strong>
+                  <span class="difficulty-badge diff-{{row.difficultyClass}}">
+                    {{row.difficultyLabel}}
+                  </span>
+                </span>
+              </div>
+
+              {{#if row.hasMembers}}
+                <div class="member-list">
+                  {{#each row.members as |member|}}
+                    <div
+                      class="member-card member-card-{{member.totalDifficulty}}"
+                      data-member-uuid="{{member.uuid}}"
+                    >
+                      <img
+                        class="member-image-{{member.singleDifficulty}}"
+                        src="{{member.img}}"
+                        alt="{{member.name}}"
+                      >
+
+                      <div class="member-body">
+                        <div class="member-name">
+                          <strong>{{member.displayName}}</strong>
+                          <span>
+                            Level {{member.level}}
+                            •
+                            {{member.xp}} XP each
+                          </span>
+                        </div>
+
+                        <div class="member-controls">
+                          <button
+                            type="button"
+                            data-action="member-minus"
+                            data-row-id="{{../id}}"
+                            data-member-uuid="{{member.uuid}}"
+                          >
+                            −
+                          </button>
+
+                          <span class="member-count">
+                            {{member.qty}}
+                          </span>
+
+                          <button
+                            type="button"
+                            data-action="member-plus"
+                            data-row-id="{{../id}}"
+                            data-member-uuid="{{member.uuid}}"
+                          >
+                            +
+                          </button>
+
+                          <button
+                            type="button"
+                            class="btn-danger"
+                            data-action="member-remove"
+                            data-row-id="{{../id}}"
+                            data-member-uuid="{{member.uuid}}"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              {{else}}
+                <p class="empty">
+                  Drop an Actor to start this encounter.
+                </p>
+              {{/if}}
+            </div>
+          </article>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="empty empty-large">
+        No encounters yet. Add a row to begin building your table.
+      </p>
+    {{/if}}
+  </section>
+
+  <section class="panel footer-actions">
+    <button
+      type="button"
+      class="btn-success"
+      data-action="add-row"
+    >
+      + Add Row
+    </button>
+
+    <button
+      type="button"
+      class="btn-primary"
+      data-action="create-table"
+    >
+      Create Rollable Table
+    </button>
+
+    <button
+      type="button"
+      class="btn-danger"
+      data-action="clear-table"
+    >
+      Clear Table
+    </button>
+  </section>
+</form>

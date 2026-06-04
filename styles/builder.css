@@ -1,0 +1,627 @@
+:root {
+  --color-trivial-minus: #808080;
+  --color-trivial: #7bc67e;
+  --color-trivial-plus: #4caf50;
+
+  --color-low: #90caf9;
+  --color-low-plus: #42a5f5;
+
+  --color-moderate: #fbc02d;
+  --color-moderate-plus: #ff9800;
+
+  --color-severe: #e53935;
+  --color-severe-plus: #b71c1c;
+
+  --color-extreme: #d500f9;
+  --color-extreme-plus: #8e24aa;
+}
+
+.pf2e-encounter-table-builder {
+  --surface-0: #181613;
+  --surface-1: #211d18;
+  --surface-2: #2b261f;
+  --surface-3: #363028;
+
+  --gold: #c9a86a;
+  --gold-soft: #8f7850;
+
+  --text-primary: #f0ece4;
+  --text-secondary: #b5aea2;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, .25);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, .45);
+
+  --radius: 14px;
+}
+
+.pf2e-encounter-table-builder .window-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+.pf2e-encounter-table-builder form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-0);
+  color: var(--gold-soft);
+}
+
+.pf2e-encounter-table-builder .builder {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  overflow: auto;
+}
+
+/* PANELS */
+
+.pf2e-encounter-table-builder .panel {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.01)
+    ),
+    var(--surface-1);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: var(--radius);
+
+  padding: 16px;
+
+  box-shadow: var(--shadow-sm);
+}
+
+/* HEADERS */
+
+.pf2e-encounter-table-builder .rows-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 12px;
+}
+
+.pf2e-encounter-table-builder .rows-header strong {
+  color: var(--gold);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.pf2e-encounter-table-builder .rows-header span {
+  color: var(--text-secondary);
+}
+
+/* SETTINGS */
+
+.pf2e-encounter-table-builder .settings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.pf2e-encounter-table-builder .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pf2e-encounter-table-builder .field span {
+  font-size: .75rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.pf2e-encounter-table-builder input {
+  background: var(--surface-2);
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  border-radius: 10px;
+
+  color: var(--text-primary);
+
+  padding: 8px 10px;
+
+  transition: all .15s ease;
+}
+
+.pf2e-encounter-table-builder input:focus {
+  border-color: var(--gold);
+
+  box-shadow:
+    0 0 0 1px var(--gold),
+    0 0 10px rgba(201,168,106,.25);
+}
+
+/* BUDGET CARDS */
+
+.pf2e-encounter-table-builder .budget-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.pf2e-encounter-table-builder .budget-card {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: var(--surface-2);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  text-align: center;
+
+  transition: all .15s ease;
+}
+
+.pf2e-encounter-table-builder .budget-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pf2e-encounter-table-builder .budget-card::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 5px;
+}
+
+.pf2e-encounter-table-builder .budget-card-trivial::before {
+  background: var(--color-trivial);
+}
+
+.pf2e-encounter-table-builder .budget-card-low::before {
+  background: var(--color-low);
+}
+
+.pf2e-encounter-table-builder .budget-card-moderate::before {
+  background: var(--color-moderate);
+}
+
+.pf2e-encounter-table-builder .budget-card-severe::before {
+  background: var(--color-severe);
+}
+
+.pf2e-encounter-table-builder .budget-card-extreme::before {
+  background: var(--color-extreme);
+}
+
+.pf2e-encounter-table-builder .budget-card .label {
+  color: var(--text-secondary);
+  font-size: .8rem;
+}
+
+.pf2e-encounter-table-builder .budget-card .value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.pf2e-encounter-table-builder .legend {
+  padding-top: 10px;
+}
+
+/* ENCOUNTERS */
+
+.pf2e-encounter-table-builder .encounter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pf2e-encounter-table-builder .encounter-row {
+  background: var(--surface-1);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.pf2e-encounter-table-builder .encounter-row:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pf2e-encounter-table-builder .encounter-row.expanded {
+  box-shadow: var(--shadow-lg);
+}
+
+.pf2e-encounter-table-builder .encounter-row-trivial,
+.pf2e-encounter-table-builder .encounter-row-trivial-plus,
+.pf2e-encounter-table-builder .encounter-row-trivial-minus {
+  border-left: 5px solid var(--color-trivial);
+}
+
+.pf2e-encounter-table-builder .encounter-row-low,
+.pf2e-encounter-table-builder .encounter-row-low-plus {
+  border-left: 5px solid var(--color-low);
+}
+
+.pf2e-encounter-table-builder .encounter-row-moderate,
+.pf2e-encounter-table-builder .encounter-row-moderate-plus {
+  border-left: 5px solid var(--color-moderate);
+}
+
+.pf2e-encounter-table-builder .encounter-row-severe,
+.pf2e-encounter-table-builder .encounter-row-severe-plus {
+  border-left: 5px solid var(--color-severe);
+}
+
+.pf2e-encounter-table-builder .encounter-row-extreme,
+.pf2e-encounter-table-builder .encounter-row-extreme-plus {
+  border-left: 5px solid var(--color-extreme);
+}
+
+.pf2e-encounter-table-builder .row-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  padding: 14px 16px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.04),
+      transparent
+    );
+}
+
+.pf2e-encounter-table-builder .row-title {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.pf2e-encounter-table-builder .row-main {
+  flex: 1;
+  min-width: 260px;
+}
+
+.pf2e-encounter-table-builder .summary {
+  display: block;
+  margin-top: 4px;
+}
+
+.pf2e-encounter-table-builder .row-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pf2e-encounter-table-builder .weight-field {
+  width: 90px;
+}
+
+/* EDITOR */
+
+.pf2e-encounter-table-builder .row-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  overflow: hidden;
+
+  max-height: 0;
+  opacity: 0;
+
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  border-top: 0;
+
+  transition:
+    max-height 300ms ease,
+    opacity 200ms ease,
+    padding 300ms ease;
+}
+
+.pf2e-encounter-table-builder .encounter-row.expanded .row-editor {
+  max-height: 5000px;
+
+  opacity: 1;
+
+  padding-top: 14px;
+  padding-bottom: 14px;
+
+  border-top: 1px dashed rgba(255,255,255,.12);
+}
+
+.pf2e-encounter-table-builder .row-footer {
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* DROPZONE */
+
+.pf2e-encounter-table-builder .dropzone {
+  min-height: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed var(--gold-soft);
+
+  border-radius: 12px;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,.02) 10px,
+      rgba(255,255,255,.04) 10px,
+      rgba(255,255,255,.04) 20px
+    );
+
+  color: var(--gold);
+
+  font-weight: 600;
+}
+
+/* MEMBERS */
+
+.pf2e-encounter-table-builder .member-list {
+  margin-top: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pf2e-encounter-table-builder .member-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  padding: 10px;
+
+  border-radius: 12px;
+
+  background: var(--surface-2);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  transition: all .15s ease;
+}
+
+.pf2e-encounter-table-builder .member-card:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pf2e-encounter-table-builder .member-card img {
+  width: 52px;
+  height: 52px;
+
+  border-width: 2px;
+  border-style: solid;
+
+  border-radius: 10px;
+
+  object-fit: cover;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+
+.pf2e-encounter-table-builder .member-body {
+  flex: 1;
+}
+
+.pf2e-encounter-table-builder .member-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf2e-encounter-table-builder .member-name strong {
+  color: var(--text-primary);
+}
+
+.pf2e-encounter-table-builder .member-name span {
+  color: var(--text-secondary);
+  font-size: .85rem;
+}
+
+.pf2e-encounter-table-builder .member-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  margin-top: 8px;
+}
+
+.pf2e-encounter-table-builder .member-controls button {
+  width: fit-content;
+  padding: 4px 8px;
+}
+
+/* BUTTONS */
+
+.pf2e-encounter-table-builder button {
+  border: none;
+  border-radius: 10px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+
+  transition: all .15s ease;
+}
+
+.pf2e-encounter-table-builder button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pf2e-encounter-table-builder .btn-primary {
+  background: linear-gradient(
+    180deg,
+    #d7b87a,
+    #b58e49
+  );
+
+  color: #111;
+  font-weight: 700;
+}
+
+.pf2e-encounter-table-builder .btn-success {
+  background: #315c39;
+  color: white;
+}
+
+.pf2e-encounter-table-builder .btn-secondary {
+  background: var(--surface-3);
+  color: white;
+}
+
+.pf2e-encounter-table-builder .btn-danger {
+  background: #6b2f2f;
+  color: white;
+}
+
+/* DIFFICULTY BADGES */
+
+.pf2e-encounter-table-builder .difficulty-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 3px 8px;
+
+  border-radius: 999px;
+
+  font-size: .75rem;
+
+  font-weight: 700;
+}
+
+.pf2e-encounter-table-builder .diff-trivial,
+.pf2e-encounter-table-builder .diff-trivial-plus,
+.pf2e-encounter-table-builder .diff-trivial-minus {
+  color: var(--color-trivial);
+  background: rgba(123,198,126,.15);
+}
+
+.pf2e-encounter-table-builder .diff-low,
+.pf2e-encounter-table-builder .diff-low-plus {
+  color: var(--color-low);
+  background: rgba(144,202,249,.15);
+}
+
+.pf2e-encounter-table-builder .diff-moderate,
+.pf2e-encounter-table-builder .diff-moderate-plus {
+  color: var(--color-moderate);
+  background: rgba(251,192,45,.15);
+}
+
+.pf2e-encounter-table-builder .diff-severe,
+.pf2e-encounter-table-builder .diff-severe-plus {
+  color: var(--color-severe);
+  background: rgba(229,57,53,.15);
+}
+
+.pf2e-encounter-table-builder .diff-extreme,
+.pf2e-encounter-table-builder .diff-extreme-plus {
+  color: var(--color-extreme);
+  background: rgba(213,0,249,.15);
+}
+
+/* IMAGE BORDERS */
+
+.pf2e-encounter-table-builder .member-image-trivial-minus { border-color: var(--color-trivial-minus); }
+.pf2e-encounter-table-builder .member-image-trivial { border-color: var(--color-trivial); }
+.pf2e-encounter-table-builder .member-image-trivial-plus { border-color: var(--color-trivial-plus); }
+
+.pf2e-encounter-table-builder .member-image-low { border-color: var(--color-low); }
+.pf2e-encounter-table-builder .member-image-low-plus { border-color: var(--color-low-plus); }
+
+.pf2e-encounter-table-builder .member-image-moderate { border-color: var(--color-moderate); }
+.pf2e-encounter-table-builder .member-image-moderate-plus { border-color: var(--color-moderate-plus); }
+
+.pf2e-encounter-table-builder .member-image-severe { border-color: var(--color-severe); }
+.pf2e-encounter-table-builder .member-image-severe-plus { border-color: var(--color-severe-plus); }
+
+.pf2e-encounter-table-builder .member-image-extreme { border-color: var(--color-extreme); }
+.pf2e-encounter-table-builder .member-image-extreme-plus { border-color: var(--color-extreme-plus); }
+
+/* MEMBER LEFT STRIP */
+
+.pf2e-encounter-table-builder .member-card-trivial-minus { border-left: 5px solid var(--color-trivial-minus); }
+.pf2e-encounter-table-builder .member-card-trivial { border-left: 5px solid var(--color-trivial); }
+.pf2e-encounter-table-builder .member-card-trivial-plus { border-left: 5px solid var(--color-trivial-plus); }
+
+.pf2e-encounter-table-builder .member-card-low { border-left: 5px solid var(--color-low); }
+.pf2e-encounter-table-builder .member-card-low-plus { border-left: 5px solid var(--color-low-plus); }
+
+.pf2e-encounter-table-builder .member-card-moderate { border-left: 5px solid var(--color-moderate); }
+.pf2e-encounter-table-builder .member-card-moderate-plus { border-left: 5px solid var(--color-moderate-plus); }
+
+.pf2e-encounter-table-builder .member-card-severe { border-left: 5px solid var(--color-severe); }
+.pf2e-encounter-table-builder .member-card-severe-plus { border-left: 5px solid var(--color-severe-plus); }
+
+.pf2e-encounter-table-builder .member-card-extreme { border-left: 5px solid var(--color-extreme); }
+.pf2e-encounter-table-builder .member-card-extreme-plus { border-left: 5px solid var(--color-extreme-plus); }
+
+/* EMPTY */
+
+.pf2e-encounter-table-builder .empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.pf2e-encounter-table-builder .empty-large {
+  text-align: center;
+  padding: 24px;
+}
+
+/* FOOTER */
+
+.pf2e-encounter-table-builder .footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .pf2e-encounter-table-builder .settings-grid,
+  .pf2e-encounter-table-builder .budget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf2e-encounter-table-builder .footer-actions {
+    flex-direction: column;
+  }
+}
